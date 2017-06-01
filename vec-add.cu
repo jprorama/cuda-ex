@@ -22,7 +22,7 @@ void printarray(float *a, int N) {
   int i;
 
   for (i=0; i<N; i++) {
-      printf("%d ", a[i]);
+      printf("%f ", a[i]);
     printf("\n");
   }
 }
