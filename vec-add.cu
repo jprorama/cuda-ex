@@ -42,7 +42,9 @@ int main(int argc, char **argv)
   initarray(h_A, N, 10);
   initarray(h_B, N, 10);
 
+  printf("h_a:\n");
   printarray(h_A, N);
+  printf("h_b:\n");
   printarray(h_B, N);
 
   // Allocate vectors in device memory
@@ -68,6 +70,7 @@ int main(int argc, char **argv)
   cudaMemcpy(h_C, d_C, size, cudaMemcpyDeviceToHost);
 
   // print result
+  printf("h_c:\n");
   printarray(h_C, N);
 
   // Free device memory
