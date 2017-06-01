@@ -45,38 +45,38 @@ int main(int argc, char **argv)
   printarray(h_A, N);
   printarray(h_B, N);
 
-    // Allocate vectors in device memory
-    float* d_A;
-    cudaMalloc(&d_A, size);
-    float* d_B;
-    cudaMalloc(&d_B, size);
-    float* d_C;
-    cudaMalloc(&d_C, size);
+  // Allocate vectors in device memory
+  float* d_A;
+  cudaMalloc(&d_A, size);
+  float* d_B;
+  cudaMalloc(&d_B, size);
+  float* d_C;
+  cudaMalloc(&d_C, size);
 
-    // Copy vectors from host memory to device memory
-    cudaMemcpy(d_A, h_A, size, cudaMemcpyHostToDevice);
-    cudaMemcpy(d_B, h_B, size, cudaMemcpyHostToDevice);
+  // Copy vectors from host memory to device memory
+  cudaMemcpy(d_A, h_A, size, cudaMemcpyHostToDevice);
+  cudaMemcpy(d_B, h_B, size, cudaMemcpyHostToDevice);
 
-    // Invoke kernel
-    int threadsPerBlock = 256;
-    int blocksPerGrid =
-      (N + threadsPerBlock - 1) / threadsPerBlock;
-    VecAdd<<<blocksPerGrid, threadsPerBlock>>>(d_A, d_B, d_C, N);
+  // Invoke kernel
+  int threadsPerBlock = 256;
+  int blocksPerGrid =
+    (N + threadsPerBlock - 1) / threadsPerBlock;
+  VecAdd<<<blocksPerGrid, threadsPerBlock>>>(d_A, d_B, d_C, N);
 
-    // Copy result from device memory to host memory
-    // h_C contains the result in host memory
-    cudaMemcpy(h_C, d_C, size, cudaMemcpyDeviceToHost);
+  // Copy result from device memory to host memory
+  // h_C contains the result in host memory
+  cudaMemcpy(h_C, d_C, size, cudaMemcpyDeviceToHost);
 
-    // print result
-    printarray(h_C, N);
+  // print result
+  printarray(h_C, N);
 
-    // Free device memory
-    cudaFree(d_A);
-    cudaFree(d_B);
-    cudaFree(d_C);
+  // Free device memory
+  cudaFree(d_A);
+  cudaFree(d_B);
+  cudaFree(d_C);
             
-    // Free host memory
-    free(h_A);
-    free(h_B);
-    free(h_C);
-      }
+  // Free host memory
+  free(h_A);
+  free(h_B);
+  free(h_C);
+}
